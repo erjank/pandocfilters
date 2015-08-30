@@ -56,7 +56,10 @@ def toJSONFilter(action):
     the list to which the target object belongs.    (So, returning an
     empty list deletes the object.)
     """
-    input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+    if sys.version_info > (3,):
+        input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+    else:
+        input_stream = sys.stdin
     doc = json.loads(input_stream.read())
     if len(sys.argv) > 1:
         format = sys.argv[1]
